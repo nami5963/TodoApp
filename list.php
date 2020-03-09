@@ -1,5 +1,13 @@
 <?php
+require_once('config.php');
+require_once('function.php');
+require_once('classes.php');
 
+$todoInstance = new Todo();
+$todos = $todoInstance->getTodos();
+
+var_dump($todos);
+exit();
 
 ?>
 

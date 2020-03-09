@@ -8,4 +8,4 @@ create table todos (
 	content text
 );
 
-insert into todos (flag, content) values (0, 'タスク１'), (0, 'タスク２'), (1, 'タスク３');
+insert into todos (flag, content) values (0, 'task1'), (0, 'task2'), (1, 'task3');
