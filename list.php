@@ -4,9 +4,15 @@ require_once('function.php');
 require_once('classes.php');
 
 $todoInstance = new Todo();
+$todoInstance->connectDB();
+
+if(isset($_POST['post'])){
+	$todoInstance->post();
+}
+
 $todos = $todoInstance->getTodos();
 
-var_dump($todos);
+//var_dump($todos);
 //exit();
 
 ?>
@@ -21,8 +27,8 @@ var_dump($todos);
 <body>
 	<div id="container">
 		<h1>やることリスト</h1>
-		<form action="">
-			<input type="text" placeholder="タスクを入力してください" id="new">
+		<form action="" method="post">
+			<input type="text" name="post" placeholder="タスクを入力してください" id="new">
 		</form>
 		<ul>
 			<?php foreach($todos as $todo){ ?>
