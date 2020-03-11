@@ -10,10 +10,16 @@ if(isset($_POST['post'])){
 	$todoInstance->post();
 }
 
+if(isset($_POST['data_id'])){
+	$todoInstance->flag_change();
+}
+
 $todos = $todoInstance->getTodos();
 
 //var_dump($todos);
 //exit();
+
+$counter = 1;
 
 ?>
 
@@ -34,12 +40,15 @@ $todos = $todoInstance->getTodos();
 			<?php foreach($todos as $todo){ ?>
 				<li>
 					<form id="flag_form" method="post" action="">
-						<input type="checkbox" class="flag" <?php if($todo->flag == '1'){ echo 'checked'; } ?> onchange="document.forms.flag_form.submit();">
-						<input type="hidden" name="" value="">
+						<input type="checkbox" class="flag" <?php if($todo->flag == '1'){ echo 'checked'; } ?> onchange="document.forms[<?= $counter ?>].submit();">
+						<input type="hidden" name="data_id" value="<?= $todo->id ?>">
+						<input type="hidden" name="flag_status" value="<?= $todo->flag ?>">
 					</form> 
 					<span <?php if($todo->flag == '1'){ echo 'class="done"'; } ?>><?= $todo->content ?></span>
 					<button type="submit" value="" onclick="">削除</button>
+					<!-- <span><?= $todo->id ?></span> -->
 				</li>
+			<?php $counter ++; ?>
 			<?php } ?>
 		</ul>
 	</div>

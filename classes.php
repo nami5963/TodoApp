@@ -26,5 +26,16 @@ class Todo {
 		$stmt->bindParam(':content', $_POST['post'], PDO::PARAM_STR);
 		$stmt->execute();
 	}
+
+	public function flag_change(){
+		if($_POST['flag_status'] == '0'){
+			$flag_sql = "update todos set flag = '1' where id = :data_id";
+		}else{
+			$flag_sql = "update todos set flag = '0' where id = :data_id";
+		}
+		$stmt = $this->db->prepare($flag_sql);
+		$stmt->bindParam(':data_id', $_POST['data_id'], PDO::PARAM_STR);
+		$stmt->execute();
+	}
 }
 
