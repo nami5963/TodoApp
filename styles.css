@@ -34,6 +34,11 @@ button {
 	display: inline-block;
 }
 
+#delete_form {
+	display: inline-block;
+	float: right;
+}
+
 .done {
 	text-decoration: line-through;
 }

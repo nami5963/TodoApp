@@ -29,12 +29,19 @@ class Todo {
 
 	public function flag_change(){
 		if($_POST['flag_status'] == '0'){
-			$flag_sql = "update todos set flag = '1' where id = :data_id";
+			$flag_sql = "update todos set flag = '1' where id = :id";
 		}else{
-			$flag_sql = "update todos set flag = '0' where id = :data_id";
+			$flag_sql = "update todos set flag = '0' where id = :id";
 		}
 		$stmt = $this->db->prepare($flag_sql);
-		$stmt->bindParam(':data_id', $_POST['data_id'], PDO::PARAM_STR);
+		$stmt->bindParam(':id', $_POST['change_data_id'], PDO::PARAM_STR);
+		$stmt->execute();
+	}
+
+	public function delete(){
+		$delete_sql = "delete from todos where id = :id";
+		$stmt = $this->db->prepare($delete_sql);
+		$stmt->bindParam(':id', $_POST['delete_data_id'], PDO::PARAM_STR);
 		$stmt->execute();
 	}
 }
