@@ -27,7 +27,7 @@ if(isset($_POST['delete_data_id'])){
 
 $todos = $todoInstance->getTodos();
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 $counter = 1;
 
@@ -42,6 +42,7 @@ $counter = 1;
 </head>
 <body>
 	<div id="container">
+		<p id="user_name">ログインユーザー：<?= $_SESSION['name'] ?></p>
 		<h1>やることリスト</h1>
 		<form action="" method="post">
 			<input type="text" name="post" placeholder="タスクを入力してください" id="new">

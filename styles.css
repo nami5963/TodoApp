@@ -24,6 +24,10 @@ button {
 	display: inline-block;
 }
 
+#user_name {
+	text-align: right;
+}
+
 #new {
 	width: 390px;
 	border-radius: 5px;
