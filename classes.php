@@ -15,19 +15,26 @@ class Todo {
 	}
 
 	public function getTodos(){
-		$sql = "select * from todos order by id desc";
-		$stmt = $this->db->query($sql);
+		$sql = "select * from todos where user_id = :user_id order by id desc";
+		$stmt = $this->db->prepare($sql);
+		$stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+		$stmt->execute();
 		return $stmt->fetchAll(PDO::FETCH_OBJ);
 	}
 
 	public function post(){
-		if($_POST['csrf_token'] == $_SESSION['csrf_token']){
-			$post_sql = "insert into todos (content) values (:content)";
-			$stmt = $this->db->prepare($post_sql);
-			$stmt->bindParam(':content', escape($_POST['post']), PDO::PARAM_STR);
-			$stmt->execute();
+		if(!empty($_POST['post'])){
+			if($_POST['csrf_token'] == $_SESSION['csrf_token']){
+				$post_sql = "insert into todos (user_id, content) values (:user_id, :content)";
+				$stmt = $this->db->prepare($post_sql);
+				$stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+				$stmt->bindParam(':content', escape($_POST['post']), PDO::PARAM_STR);
+				$stmt->execute();
+			}else{
+				echo 'invalid post!!';
+			}
 		}else{
-			echo 'invalid post!!';
+			echo 'タスクが入力されていません。';
 		}
 	}
 
@@ -80,7 +87,8 @@ class User {
 			session_regenerate_id();
                 	if(!isset($_SESSION['csrf_token'])) {
                         	$_SESSION['csrf_token'] = sha1(mt_rand());
-                	}
+			}
+			$_SESSION['user_id'] = $login_user->id;
                 	$_SESSION['name'] = escape($_POST['name']);
                 	header('Location: list.php');
 		}
