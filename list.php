@@ -1,7 +1,14 @@
 <?php
+
+session_start();
+
 require_once('config.php');
 require_once('function.php');
 require_once('classes.php');
+
+if(!isset($_SESSION['name'])){
+	header('Location: login.php');
+}
 
 $todoInstance = new Todo();
 $todoInstance->connectDB();
@@ -20,8 +27,7 @@ if(isset($_POST['delete_data_id'])){
 
 $todos = $todoInstance->getTodos();
 
-//var_dump($todos);
-//exit();
+var_dump($_SESSION);
 
 $counter = 1;
 
@@ -57,6 +63,7 @@ $counter = 1;
 			<?php $counter += 2; ?>
 			<?php } ?>
 		</ul>
+		
 	</div>
 </body>
 </html>
