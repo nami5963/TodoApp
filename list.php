@@ -42,7 +42,7 @@ $counter = 1;
 </head>
 <body>
 	<div id="container">
-		<p id="user_name">ログインユーザー：<?= $_SESSION['name'] ?></p>
+		<p id="user_name">ログインユーザー：<?= escape($_SESSION['name']) ?></p>
 		<h1>やることリスト</h1>
 		<form action="" method="post">
 			<input type="text" name="post" placeholder="タスクを入力してください" id="new">
@@ -56,7 +56,7 @@ $counter = 1;
 						<input type="hidden" name="change_data_id" value="<?= $todo->id ?>">
 						<input type="hidden" name="flag_status" value="<?= $todo->flag ?>">
 					</form> 
-					<span <?php if($todo->flag == '1'){ echo 'class="done"'; } ?>><?= $todo->content ?></span>
+					<span <?php if($todo->flag == '1'){ echo 'class="done"'; } ?>><?= escape($todo->content) ?></span>
 					<form id="delete_form" method="post" action="">
 						<button type="submit" class="btn" name="delete_data_id" value="<?= $todo->id ?>">x</button>
 					</form>
