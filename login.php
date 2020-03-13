@@ -29,7 +29,7 @@ if(isset($_POST['name'])){
 		<form action="" method="post">
 			<input type="text" name="name" placeholder="名前を入力してください" class="login" required><br>
 			<input type="password" name="password" placeholder="パスワードを入力してください" class="login" required>
-			<input type="submit" value="ログイン">
+			<button type="submit" class="log_btn">ログイン</button>
 		</form>
 	</div>
 </body>

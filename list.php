@@ -7,7 +7,7 @@ require_once('function.php');
 require_once('classes.php');
 
 if(!isset($_SESSION['name'])){
-	header('Location: login.php');
+	header('Location: invalid.php');
 }
 
 $todoInstance = new Todo();
@@ -63,7 +63,7 @@ $counter = 1;
 			<?php $counter += 2; ?>
 			<?php } ?>
 		</ul>
-		
+		<button type="button" class="log_btn" onclick="location.href='logout.php'">ログアウト</button>
 	</div>
 </body>
 </html>
