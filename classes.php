@@ -21,10 +21,14 @@ class Todo {
 	}
 
 	public function post(){
-		$post_sql = "insert into todos (content) values (:content)";
-		$stmt = $this->db->prepare($post_sql);
-		$stmt->bindParam(':content', $_POST['post'], PDO::PARAM_STR);
-		$stmt->execute();
+		if($_POST['csrf_token'] == $_SESSION['csrf_token']){
+			$post_sql = "insert into todos (content) values (:content)";
+			$stmt = $this->db->prepare($post_sql);
+			$stmt->bindParam(':content', escape($_POST['post']), PDO::PARAM_STR);
+			$stmt->execute();
+		}else{
+			echo 'invalid post!!';
+		}
 	}
 
 	public function flag_change(){
@@ -71,7 +75,8 @@ class User {
 	public function login($login_user) {
 		if(!$login_user || $login_user->password !== escape($_POST['password'])){
                 	echo '入力に誤りがあります。';
-        	}else{
+		}else{
+			session_regenerate_id();
                 	if(!isset($_SESSION['csrf_token'])) {
                         	$_SESSION['csrf_token'] = sha1(mt_rand());
                 	}

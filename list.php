@@ -28,6 +28,7 @@ if(isset($_POST['delete_data_id'])){
 $todos = $todoInstance->getTodos();
 
 var_dump($_SESSION);
+echo session_id();
 
 $counter = 1;
 
@@ -45,6 +46,7 @@ $counter = 1;
 		<h1>やることリスト</h1>
 		<form action="" method="post">
 			<input type="text" name="post" placeholder="タスクを入力してください" id="new">
+			<input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 		</form>
 		<ul>
 			<?php foreach($todos as $todo){ ?>
