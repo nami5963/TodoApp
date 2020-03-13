@@ -50,7 +50,7 @@ $counter = 1;
 					</form> 
 					<span <?php if($todo->flag == '1'){ echo 'class="done"'; } ?>><?= $todo->content ?></span>
 					<form id="delete_form" method="post" action="">
-						<button type="submit" name="delete_data_id" value="<?= $todo->id ?>">削除</button>
+						<button type="submit" class="btn" name="delete_data_id" value="<?= $todo->id ?>">x</button>
 					</form>
 					<!--<span><?= $todo->id ?></span> -->
 				</li>
