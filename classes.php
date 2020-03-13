@@ -73,9 +73,10 @@ class User {
 	}
 
 	public function login($login_user) {
-		if(!$login_user || $login_user->password !== escape($_POST['password'])){
+		if(!$login_user || $login_user->password !== sha1(escape($_POST['password']))){
                 	echo '入力に誤りがあります。';
 		}else{
+			$_SESSION = [];
 			session_regenerate_id();
                 	if(!isset($_SESSION['csrf_token'])) {
                         	$_SESSION['csrf_token'] = sha1(mt_rand());
@@ -83,6 +84,15 @@ class User {
                 	$_SESSION['name'] = escape($_POST['name']);
                 	header('Location: list.php');
 		}
+	}
+
+	public function register() {
+		$register_sql = "insert into users (name, password) values (:name, :password)";
+		$stmt = $this->db->prepare($register_sql);
+		$stmt->bindParam(':name', escape($_POST['name']), PDO::PARAM_STR);
+		$stmt->bindParam(':password', sha1(escape($_POST['password'])), PDO::PARAM_STR);
+		$stmt->execute();
+		header('Location: login.php');
 	}
 }
 

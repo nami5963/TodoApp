@@ -28,7 +28,6 @@ if(isset($_POST['delete_data_id'])){
 $todos = $todoInstance->getTodos();
 
 var_dump($_SESSION);
-echo session_id();
 
 $counter = 1;
 

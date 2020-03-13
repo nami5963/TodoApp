@@ -30,6 +30,7 @@ if(isset($_POST['name'])){
 			<input type="text" name="name" placeholder="名前を入力してください" class="login" required><br>
 			<input type="password" name="password" placeholder="パスワードを入力してください" class="login" required>
 			<button type="submit" class="log_btn">ログイン</button>
+			<button type="button" class="log_btn" onclick="location.href='register.php'">ユーザー登録ページへ</button>
 		</form>
 	</div>
 </body>
