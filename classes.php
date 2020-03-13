@@ -87,12 +87,16 @@ class User {
 	}
 
 	public function register() {
-		$register_sql = "insert into users (name, password) values (:name, :password)";
-		$stmt = $this->db->prepare($register_sql);
-		$stmt->bindParam(':name', escape($_POST['name']), PDO::PARAM_STR);
-		$stmt->bindParam(':password', sha1(escape($_POST['password'])), PDO::PARAM_STR);
-		$stmt->execute();
-		header('Location: login.php');
+		try{
+			$register_sql = "insert into users (name, password) values (:name, :password)";
+			$stmt = $this->db->prepare($register_sql);
+			$stmt->bindParam(':name', escape($_POST['name']), PDO::PARAM_STR);
+			$stmt->bindParam(':password', sha1(escape($_POST['password'])), PDO::PARAM_STR);
+			$stmt->execute();
+			header('Location: register_complete.php');
+		}catch(PDOException $e){
+			echo '既にその名前とパスワードの組み合わせが存在しています。';
+		}
 	}
 }
 
